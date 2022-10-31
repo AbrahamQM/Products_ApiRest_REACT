@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import UsersService from '../services/UsersService'
+import { withRouter } from 'react-router'
+
 
 
 class ListUsersComponent extends Component {
@@ -9,6 +11,7 @@ class ListUsersComponent extends Component {
         this.state = {
                 users: [ ]
         }
+        this.createUser = this.createUser.bind(this);
     }
     
     componentDidMount(){
@@ -17,10 +20,20 @@ class ListUsersComponent extends Component {
         });
     }
 
+    createUser(){
+        this.props.history.replace('/users/createUser');
+        console.log("Ir a crear usuario");
+        //this.props.history.replace(redirectPath);
+
+    }
+
     render() {
         return (
             <div>
                 <h2 className="text-center">Users List</h2>
+                <div className= "row">
+                    <button className="btn btn-primary" onClick={this.createUser.bind(this)}>Add User</button>
+                </div>
                 <div className= "row">
                     <table className= "table table-striped table-bordered">
                         <thead>
@@ -53,4 +66,4 @@ class ListUsersComponent extends Component {
     }
 }
 
-export default ListUsersComponent
+export default withRouter(ListUsersComponent)
